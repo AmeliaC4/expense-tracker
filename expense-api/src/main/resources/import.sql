@@ -4,3 +4,10 @@
 -- insert into myentity (id, field) values(2, 'field-2');
 -- insert into myentity (id, field) values(3, 'field-3');
 -- alter sequence myentity_seq restart with 4;
+
+INSERT INTO Category(id, name) VALUES (1, 'Food');
+INSERT INTO Category(id, name) VALUES (2, 'Transport');
+INSERT INTO Category(id, name) VALUES (3, 'Entertainment');
+INSERT INTO Category(id, name) VALUES (4, 'Bills');
+INSERT INTO Category(id, name) VALUES (5, 'Other');
+ALTER SEQUENCE Category_SEQ RESTART WITH 6;
