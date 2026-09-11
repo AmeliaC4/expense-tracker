@@ -11,3 +11,8 @@ INSERT INTO Category(id, name) VALUES (3, 'Entertainment');
 INSERT INTO Category(id, name) VALUES (4, 'Bills');
 INSERT INTO Category(id, name) VALUES (5, 'Other');
 ALTER SEQUENCE Category_SEQ RESTART WITH 6;
+
+INSERT INTO Expense (id, amount, description, expenseDate, category_id) VALUES (1, 249.99, 'Groceries', '2026-09-08', 1);
+INSERT INTO Expense(id, amount, description, expenseDate, category_id) VALUES (2, 85.00, 'Taxi to town', '2026-09-09', 2);
+INSERT INTO Expense(id, amount, description, expenseDate, category_id) VALUES (3, 120.50, 'Movie night', '2026-09-09', 3);
+ALTER SEQUENCE Expense_SEQ RESTART WITH 4;
