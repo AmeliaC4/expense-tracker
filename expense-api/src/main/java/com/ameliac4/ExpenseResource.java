@@ -14,6 +14,10 @@ import java.util.List;
 import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.PUT;
 import jakarta.ws.rs.PathParam;
+import jakarta.ws.rs.QueryParam;
+
+import java.time.Year;
+import java.time.YearMonth;
 
 import javax.annotation.processing.Generated;
 
@@ -21,7 +25,21 @@ import javax.annotation.processing.Generated;
 public class ExpenseResource {
     @GET 
     @Produces(MediaType.APPLICATION_JSON)
-    public List<Expense> list() {
+    public List<Expense> list( @QueryParam("month") String month,
+                            @QueryParam("category") Long categoryId) {
+        if (month != null && categoryId != null) {
+            YearMonth ym = YearMonth.parse(month);
+            return Expense.list("expenseDate >= ?1 and expenseDate <= ?2 and category.id = ?3",
+                ym.atDay(1), ym.atEndOfMonth(), categoryId);
+        }
+        if (month!= null) {
+            YearMonth ym = YearMonth.parse(month);
+            return Expense.list("expenseDate>= ?1 and expenseDate <= ?2",
+                ym.atDay(1), ym.atEndOfMonth());
+        }
+        if (categoryId != null) {
+            return Expense.list("category.id = ?1", categoryId);
+        }
         return Expense.listAll();
 
     }
