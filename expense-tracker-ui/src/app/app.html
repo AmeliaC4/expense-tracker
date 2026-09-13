@@ -16,6 +16,7 @@
         <td>{{ expense.description}}</td>
         <td>{{ expense.category.name}}</td>
         <td>{{ expense.amount }}</td>
+        <td><button (click)="deleteExpense(expense)">Delete</button></td>
 
       </tr>
     }

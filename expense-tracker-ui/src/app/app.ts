@@ -17,4 +17,12 @@ export class App implements OnInit {
       this.expenses.set(data);
     });
   }
+
+  deleteExpense(expense: Expense): void {
+    if (!expense.id) return;
+    if (!confirm(`Delete "${expense.description}"?`)) return;
+    this.expenseService.deleteExpense(expense.id).subscribe(() => {
+      this.expenses.update(list => list.filter(e => e.id !== expense.id));
+    });
+  }
 }
