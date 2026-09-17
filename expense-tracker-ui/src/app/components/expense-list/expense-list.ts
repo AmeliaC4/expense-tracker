@@ -28,4 +28,23 @@ export class ExpenseList implements OnInit {
       this.expenses.update(list => list.filter(e => e.id !== expense.id));
     });
   }
+
+  pendingDelete = signal<Expense | null>(null);
+
+  requestDelete(expense: Expense): void {
+    this.pendingDelete.set(expense);
+  }
+
+  cancelDelete(): void {
+    this.pendingDelete.set(null);
+  }
+
+  confirmDelete(): void {
+    const expense = this.pendingDelete();
+    if (!expense || !expense.id) return;
+    this.expenseService.deleteExpense(expense.id).subscribe(() => {
+      this.expenses.update(list => list.filter(e => e.id !== expense.id));
+      this.pendingDelete.set(null);
+    });
+  }
 }

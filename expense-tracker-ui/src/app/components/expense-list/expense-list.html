@@ -18,10 +18,23 @@
         <td>{{ expense.category.name}}</td>
         <td>{{ expense.amount | currency: 'ZAR': 'symbol-narrow' }}</td>
         <td><a [routerLink]="['/expenses', expense.id, 'edit']">Edit</a>
-        <button (click)="deleteExpense(expense)">Delete</button>
+        <button (click)="requestDelete(expense)">Delete</button>
       </td>
 
       </tr>
     }
   </tbody>
 </table>
+
+@if (pendingDelete(); as expense) {
+  <div class="modal-backdrop" (click)="cancelDelete()">
+    <div class="modal" (click)="$event.stopPropagation()">
+      <h3>Delete expense?</h3>
+      <p>"{{ expense.description }}" ({{ expense.amount | currency:'ZAR':'symbol-narrow' }}) will be permanently deleted.</p>
+      <div class="modal-actions">
+        <button class="secondary" (click)="cancelDelete()">Cancel</button>
+        <button class="danger" (click)="confirmDelete()">Delete</button>
+      </div>
+    </div>
+  </div>
+}

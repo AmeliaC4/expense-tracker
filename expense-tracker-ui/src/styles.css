@@ -97,3 +97,49 @@ a {
 td a {
   margin-right: 10px;
 }
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+}
+
+.modal {
+  background: white;
+  border-radius: 8px;
+  padding: 24px;
+  max-width: 400px;
+  width: 90%;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+}
+
+.modal h3 {
+  margin-top: 0;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+button.secondary {
+  background: #e0e0e0;
+  color: #222;
+}
+
+button.secondary:hover {
+  background: #ccc;
+}
+
+button.danger {
+  background: #c0392b;
+}
+
+button.danger:hover {
+  background: #96281b;
+}
