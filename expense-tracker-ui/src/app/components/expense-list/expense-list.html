@@ -16,7 +16,9 @@
         <td>{{ expense.description}}</td>
         <td>{{ expense.category.name}}</td>
         <td>{{ expense.amount }}</td>
-        <td><button (click)="deleteExpense(expense)">Delete</button></td>
+        <td><a [routerLink]="['/expenses', expense.id, 'edit']">Edit</a>
+        <button (click)="deleteExpense(expense)">Delete</button>
+      </td>
 
       </tr>
     }

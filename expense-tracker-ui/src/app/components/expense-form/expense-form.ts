@@ -1,8 +1,9 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ExpenseService } from '../../services/expense.service';
 import { Category } from '../../models/expense.model';
+
 
 @Component({
   selector: 'app-expense-form',
@@ -14,6 +15,8 @@ export class ExpenseForm implements OnInit {
   private fb = inject(FormBuilder);
   private expenseService = inject(ExpenseService);
   router = inject(Router);
+  private route = inject(ActivatedRoute);
+  editingId: number | null = null;
 
   categories = signal<Category[]>([]);
 
@@ -24,13 +27,26 @@ export class ExpenseForm implements OnInit {
     categoryId: [null, Validators.required],
   });
 
-  ngOnInit(): void {
+   ngOnInit(): void {
     this.expenseService.getCategories().subscribe(data => {
       this.categories.set(data);
     });
+
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.editingId = Number(idParam);
+      this.expenseService.getExpense(this.editingId).subscribe(expense => {
+        this.form.patchValue({
+          amount: expense.amount as any,
+          description: expense.description,
+          expenseDate: expense.expenseDate,
+          categoryId: expense.category.id as any,
+        });
+      });
+    }
   }
 
-  save(): void {
+   save(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       return;
@@ -42,7 +58,10 @@ export class ExpenseForm implements OnInit {
       expenseDate: v.expenseDate!,
       category: { id: Number(v.categoryId), name: '' },
     };
-    this.expenseService.createExpense(expense).subscribe(() => {
+    const request = this.editingId
+      ? this.expenseService.updateExpense(this.editingId, expense)
+      : this.expenseService.createExpense(expense);
+    request.subscribe(() => {
       this.router.navigate(['/expenses']);
     });
   }
