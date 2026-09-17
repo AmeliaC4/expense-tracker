@@ -10,3 +10,8 @@ export interface Expense {
     expenseDate: string;
     category: Category;
 }
+
+export interface CategorySummary {
+    categoryName: string;
+    total: number;
+}

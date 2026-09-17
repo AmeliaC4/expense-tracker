@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Expense, Category } from '../models/expense.model';
+import { Expense, Category, CategorySummary } from '../models/expense.model';
 
 @Injectable({ providedIn: 'root' })
 export class ExpenseService {
@@ -31,6 +31,10 @@ export class ExpenseService {
     
     getExpense(id: number): Observable<Expense> {
         return this.http.get<Expense>(`${this.apiUrl}/${id}`);
+    }
+
+    getSummary(month: string): Observable<CategorySummary[]> {
+        return this.http.get<CategorySummary[]>(`http://localhost:8080/api/summary?month=${month}`);
     }
 
 }
