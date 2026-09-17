@@ -1,10 +1,11 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ExpenseService } from '../../services/expense.service';
 import { CategorySummary } from '../../models/expense.model';
 
 @Component({
-  imports: [FormsModule],
+  imports: [FormsModule, CurrencyPipe],
   selector: 'app-summary',
   styleUrl: './summary.css',
   templateUrl: './summary.html',
