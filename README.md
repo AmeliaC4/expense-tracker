@@ -66,6 +66,7 @@ Expense data persists across restarts via a named Docker volume.
 - Currency formatting (ZAR) via Angular pipes
 - Proper HTTP semantics: 201 Created, 204 No Content, 404 guards on update/delete
 - Live monitoring: request counts per endpoint, JVM memory, CPU — in Grafana
+- CI pipeline: GitHub Actions builds and tests the API and UI on every push
 
 ![Monthly summary](screenshots/summary.png)
 ![Delete confirmation modal](screenshots/modal.png)
@@ -132,7 +133,6 @@ This was my first full-stack project built end to end, and most of the learning 
 
 ## Roadmap
 
-- [ ] CI pipeline with GitHub Actions (build + test on push)
 - [ ] Backend unit tests (JUnit + RestAssured)
 - [ ] Chart on the summary page
 - [ ] Authentication
